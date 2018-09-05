@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import styled from 'styled-components';
 import {Button,Input} from './index';
 
 export const FormContext = React.createContext();
 
-class Form extends Component{
+class Form extends PureComponent{
 
   onChange = ({target:{name,value}}) => {
     this.setState({formData:{...this.state.formData, [name]:value}})
   }
 
-  onClick = () => {
+  onClick = (e) => {
+    e.preventDefault()
     this.props.onSubmit(this.state.formData)
     const reset = Object.keys(this.state.formData).reduce((acc,val) => {
       acc[val] = ''
